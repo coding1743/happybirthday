@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>✨ Ultimate Glam Birthday Card ✨</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Quicksand&display=swap" rel="stylesheet" />
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: radial-gradient(circle, #fff0f5, #ffc0cb);
+      font-family: 'Quicksand', sans-serif;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: bgPulse 10s infinite alternate;
+    }
+    @keyframes bgPulse {
+      0% { background: radial-gradient(circle, #ffe4e1, #ffb6c1); }
+      100% { background: radial-gradient(circle, #ffb6c1, #ffc0cb); }
+    }
+    .card-container {
+      perspective: 2000px;
+    }
+    .card {
+      width: 400px;
+      height: 520px;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 1.2s ease-in-out;
+      cursor: pointer;
+    }
+    .card.open {
+      transform: rotateY(-180deg);
+    }
+    .card-face {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 20px;
+      border: 5px double gold;
+      box-shadow: 0 0 30px rgba(255, 182, 193, 0.6);
+    }
+    .front {
+      background: linear-gradient(135deg, #ffd700, #ffa07a);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5em;
+      font-family: 'Great Vibes', cursive;
+      text-shadow: 2px 2px 10px #d35400;
+      animation: glow 3s infinite alternate;
+    }
+    .back {
+      background: #fffaf0;
+      transform: rotateY(180deg);
+      padding: 30px;
+      box-sizing: border-box;
+      font-size: 1.2em;
+      font-family: 'Great Vibes', cursive;
+      text-align: center;
+      color: #c2185b;
+    }
+    @keyframes glow {
+      from {
+        box-shadow: 0 0 20px #ffb6c1, 0 0 30px #ff69b4, 0 0 40px #ff1493;
+      }
+      to {
+        box-shadow: 0 0 40px #ff69b4, 0 0 50px #ff1493, 0 0 60px #ff4500;
+      }
+    }
+    .stars, .confetti, .balloons {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 1;
+    }
+    .star {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: white;
+      border-radius: 50%;
+      box-shadow: 0 0 6px white;
+      animation: sparkle 2s infinite ease-in-out;
+    }
+    @keyframes sparkle {
+      0%, 100% { opacity: 0.2; transform: scale(0.6); }
+      50% { opacity: 1; transform: scale(1.5); }
+    }
+    .confetti-piece {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      animation: confettiFall 6s linear infinite;
+    }
+    @keyframes confettiFall {
+      0% { transform: translateY(-100px) rotate(0); opacity: 1; }
+      100% { transform: translateY(600px) rotate(720deg); opacity: 0; }
+    }
+    .balloon {
+      position: absolute;
+      width: 40px;
+      height: 60px;
+      background: radial-gradient(circle, #ffb6c1, #ff69b4);
+      border-radius: 50% 50% 45% 45% / 60% 60% 40% 40%;
+      animation: float 7s ease-in-out infinite;
+    }
+    .balloon::after {
+      content: "";
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      width: 2px;
+      height: 30px;
+      background: #555;
+      transform: translateX(-50%);
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-25px); }
+    }
+  </style>
+</head>
+<body>
+
+<div class="card-container">
+  <div class="card" id="card">
+    <div class="card-face front">💖 Tap to Open 💝</div>
+    <div class="card-face back">
+      <h2>🎉 Happy Birthday, Parag! 🎉</h2>
+      <p>May your life be as fabulous as glitter, as magical as stardust, and as sweet as cupcakes!</p>
+      <p>Today is your day to sparkle brighter than ever. ✨</p>
+      <p>With all my love and sparkly wishes,</p>
+      <p>💋 Love Amrit 💋</p>
+    </div>
+  </div>
+
+  <div class="stars" id="stars"></div>
+  <div class="confetti" id="confetti"></div>
+  <div class="balloons" id="balloons"></div>
+</div>
+
+<audio id="music" src="https://cdn.pixabay.com/download/audio/2023/03/26/audio_3b5c95d6b6.mp3?filename=happy-birthday-142205.mp3" preload="auto" loop></audio>
+
+<script>
+  const card = document.getElementById('card');
+  const music = document.getElementById('music');
+  let played = false;
+
+  card.addEventListener('click', async () => {
+    card.classList.toggle('open');
+    if (!played) {
+ {
+    
+       music.play();
+        
+        played = true;
+      } 
+    }
+  });
+
+  function fadeIn(audio, duration) {
+    let vol = 20;
+    const step = 0.05;
+    const interval = duration / (1 / step);
+    const fade = setInterval(() => {  
+      vol += step;
+      if (vol >= 1) {
+        audio.volume = 1;
+        clearInterval(fade);
+      } else {
+        audio.volume = vol;
+      }
+    }, interval);
+  }
+
+  // Stars
+  const stars = document.getElementById('stars');
+  for (let i = 0; i < 80; i++) {
+    const star = document.createElement('div');
+    star.classList.add('star');
+    star.style.left = Math.random() * 100 + '%';
+    star.style.top = Math.random() * 100 + '%';
+    star.style.animationDelay = `${Math.random() * 3}s`;
+    stars.appendChild(star);
+  }
+
+  // Confetti
+  const confetti = document.getElementById('confetti');
+  for (let i = 0; i < 80; i++) {
+    const piece = document.createElement('div');
+    piece.classList.add('confetti-piece');
+    piece.style.left = Math.random() * 100 + '%';
+    piece.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 75%)`;
+    piece.style.animationDelay = `${Math.random() * 6}s`;
+    confetti.appendChild(piece);
+    music.play();
+
+  }
+
+  // Balloons
+  const balloons = document.getElementById('balloons');
+  for (let i = 0; i < 6; i++) {
+    const balloon = document.createElement('div');
+    balloon.classList.add('balloon');
+    balloon.style.left = `${Math.random() * 90}%`;
+    balloon.style.top = `${Math.random() * 40 + 50}%`;
+    balloon.style.animationDelay = `${Math.random() * 5}s`;
+    balloons.appendChild(balloon);
+  }
+</script>
+
+</body>
+</html>
