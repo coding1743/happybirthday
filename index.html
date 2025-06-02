@@ -8,7 +8,7 @@
     html, body {
       margin: 0;
       padding: 0;
-      background: radial-gradient(circle, #fff0f5, #ffc0cb);
+      background: radial-gradient(circle, #ff528c, #ffc0cb);
       font-family: 'Quicksand', sans-serif;
       height: 100vh;
       overflow: hidden;
@@ -18,8 +18,8 @@
       animation: bgPulse 10s infinite alternate;
     }
     @keyframes bgPulse {
-      0% { background: radial-gradient(circle, #ffe4e1, #ffb6c1); }
-      100% { background: radial-gradient(circle, #ffb6c1, #ffc0cb); }
+      0% { background: radial-gradient(circle, #3ddcff, #7589ff); }
+      100% { background: radial-gradient(circle, #fcb6da, #fe74ab); }
     }
     .card-container {
       perspective: 2000px;
@@ -63,14 +63,14 @@
       font-size: 1.2em;
       font-family: 'Great Vibes', cursive;
       text-align: center;
-      color: #c2185b;
+      color: #564ef0;
     }
     @keyframes glow {
       from {
-        box-shadow: 0 0 20px #ffb6c1, 0 0 30px #ff69b4, 0 0 40px #ff1493;
+        box-shadow: 0 0 20px #ff566f, 0 0 30px #f1258b, 0 0 40px #ff1493;
       }
       to {
-        box-shadow: 0 0 40px #ff69b4, 0 0 50px #ff1493, 0 0 60px #ff4500;
+        box-shadow: 0 0 40px #ff1289, 0 0 50px #ff1493, 0 0 60px #ff4500;
       }
     }
     .stars, .confetti, .balloons {
@@ -86,9 +86,9 @@
       position: absolute;
       width: 6px;
       height: 6px;
-      background: white;
+      background: rgb(95, 178, 242);
       border-radius: 50%;
-      box-shadow: 0 0 6px white;
+      box-shadow: 0 0 6px rgb(70, 235, 238);
       animation: sparkle 2s infinite ease-in-out;
     }
     @keyframes sparkle {
@@ -126,7 +126,7 @@
     }
     @keyframes float {
       0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-25px); }
+      50% { transform: translateY(-205px); }
     }
   </style>
 </head>
@@ -168,20 +168,20 @@
     }
   });
 
-  function fadeIn(audio, duration) {
-    let vol = 20;
-    const step = 0.05;
-    const interval = duration / (1 / step);
-    const fade = setInterval(() => {  
-      vol += step;
-      if (vol >= 1) {
-        audio.volume = 1;
-        clearInterval(fade);
-      } else {
-        audio.volume = vol;
-      }
-    }, interval);
-  }
+  // function fadeIn(audio, duration) {
+  //   let vol = 20;
+  //   const step = 0.05;
+  //   const interval = duration / (1 / step);
+  //   const fade = setInterval(() => {  
+  //     vol += step;
+  //     if (vol >= 1) {
+  //       audio.volume = 1;
+  //       clearInterval(fade);
+  //     } else {
+  //       audio.volume = vol;
+  //     }
+  //   }, interval);
+  // }
 
   // Stars
   const stars = document.getElementById('stars');
